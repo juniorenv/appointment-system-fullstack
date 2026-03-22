@@ -49,4 +49,10 @@ export default tseslint.config(
       ]
     },
   },
+  {
+    files: ['**/*.entity.ts', '**/*.dto.ts'],
+    rules: {
+      '@typescript-eslint/explicit-member-accessibility': 'off',
+    },
+  },
 );
