@@ -3,11 +3,16 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  Index,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 
 @Entity("clients")
+@Index("clients_email_unique", ["email"], {
+  unique: true,
+  where: "deleted_at IS NULL",
+})
 export class Client {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
@@ -15,7 +20,7 @@ export class Client {
   @Column({ length: 120 })
   nome!: string;
 
-  @Column({ unique: true, length: 200 })
+  @Column({ length: 200 })
   email!: string;
 
   @Column({ length: 20 })
@@ -25,35 +30,35 @@ export class Client {
   cpf?: string | null;
 
   @Column({ type: "date", nullable: true })
-  data_nascimento!: string | null;
+  data_nascimento?: string | null;
 
   // -- endereço --
 
   @Column({ type: "varchar", length: 8, nullable: true })
-  cep!: string | null;
+  cep?: string | null;
 
   @Column({ type: "varchar", length: 200, nullable: true })
-  logradouro!: string | null;
+  logradouro?: string | null;
 
   @Column({ type: "varchar", length: 20, nullable: true })
-  numero!: string | null;
+  numero?: string | null;
 
   @Column({ type: "varchar", length: 100, nullable: true })
-  complemento!: string | null;
+  complemento?: string | null;
 
   @Column({ type: "varchar", length: 100, nullable: true })
-  bairro!: string | null;
+  bairro?: string | null;
 
   @Column({ type: "varchar", length: 100, nullable: true })
-  cidade!: string | null;
+  cidade?: string | null;
 
   @Column({ type: "varchar", length: 2, nullable: true })
-  estado!: string | null;
+  estado?: string | null;
 
   // -- extra --
 
   @Column({ type: "varchar", length: 500, nullable: true })
-  observacoes!: string | null;
+  observacoes?: string | null;
 
   // -- timestamps --
 
