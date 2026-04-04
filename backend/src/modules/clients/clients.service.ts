@@ -5,7 +5,7 @@ import {
 } from "@nestjs/common";
 import { CreateClientDto } from "./dto/create-client.dto";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Client } from "./clients.entity";
+import { Client } from "./client.entity";
 import { Brackets, Repository } from "typeorm";
 import { UpdateClientDto } from "./dto/update-client.dto";
 import { isUniqueViolation } from "src/common/helpers/db-errors.helper";
