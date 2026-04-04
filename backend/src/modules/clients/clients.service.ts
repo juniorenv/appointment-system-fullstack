@@ -6,9 +6,10 @@ import {
 import { CreateClientDto } from "./dto/create-client.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Client } from "./clients.entity";
-import { Repository } from "typeorm";
+import { Brackets, Repository } from "typeorm";
 import { UpdateClientDto } from "./dto/update-client.dto";
 import { isUniqueViolation } from "src/common/helpers/db-errors.helper";
+import { FindClientsDto } from "./dto/get-client.dto";
 
 @Injectable()
 export class ClientsService {
@@ -16,6 +17,39 @@ export class ClientsService {
     @InjectRepository(Client)
     private clientsRepository: Repository<Client>,
   ) {}
+
+  public async findAll(filters?: FindClientsDto) {
+    const query = this.clientsRepository.createQueryBuilder("client");
+    const search = filters?.search?.trim();
+
+    if (search) {
+      query.andWhere(
+        new Brackets((qb) => {
+          qb.where("client.nome ILIKE :search", {
+            search: `%${search}%`,
+          }).orWhere("client.email ILIKE :search", {
+            search: `%${search}%`,
+          });
+        }),
+      );
+    }
+
+    return query.orderBy("client.nome", "ASC").getMany();
+  }
+
+  public async findOne(clientId: string) {
+    const client = await this.clientsRepository.findOne({
+      where: {
+        id: clientId,
+      },
+    });
+
+    if (!client) {
+      throw new NotFoundException(`Client with id ${clientId} not found`);
+    }
+
+    return client;
+  }
 
   public async create(createClientDto: CreateClientDto) {
     try {
