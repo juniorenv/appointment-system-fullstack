@@ -15,7 +15,7 @@ import { FindClientsDto } from "./dto/get-client.dto";
 export class ClientsService {
   constructor(
     @InjectRepository(Client)
-    private clientsRepository: Repository<Client>,
+    private readonly clientsRepository: Repository<Client>,
   ) {}
 
   public async findAll(filters?: FindClientsDto) {
