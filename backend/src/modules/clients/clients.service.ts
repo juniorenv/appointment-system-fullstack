@@ -18,12 +18,12 @@ export class ClientsService {
     private readonly clientsRepository: Repository<Client>,
   ) {}
 
-  public async findAll(filters?: QueryClientDto) {
-    const query = this.clientsRepository.createQueryBuilder("client");
-    const search = filters?.search?.trim();
+  public async findAll(query?: QueryClientDto) {
+    const qb = this.clientsRepository.createQueryBuilder("client");
+    const search = query?.search?.trim();
 
     if (search) {
-      query.andWhere(
+      qb.andWhere(
         new Brackets((qb) => {
           qb.where("client.nome ILIKE :search", {
             search: `%${search}%`,
@@ -34,7 +34,7 @@ export class ClientsService {
       );
     }
 
-    return query.orderBy("client.nome", "ASC").getMany();
+    return qb.orderBy("client.nome", "ASC").getMany();
   }
 
   public async findOne(clientId: string) {

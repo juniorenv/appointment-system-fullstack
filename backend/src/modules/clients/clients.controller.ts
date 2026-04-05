@@ -19,8 +19,8 @@ export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
   @Get()
-  public async findAll(@Query() search?: QueryClientDto) {
-    return this.clientsService.findAll(search);
+  public async findAll(@Query() query?: QueryClientDto) {
+    return this.clientsService.findAll(query);
   }
 
   @Get(":clientId")
