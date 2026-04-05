@@ -9,7 +9,7 @@ import { Client } from "./client.entity";
 import { Brackets, Repository } from "typeorm";
 import { UpdateClientDto } from "./dto/update-client.dto";
 import { isUniqueViolation } from "src/common/helpers/db-errors.helper";
-import { FindClientsDto } from "./dto/get-client.dto";
+import { QueryClientDto } from "./dto/query-client.dto";
 
 @Injectable()
 export class ClientsService {
@@ -18,7 +18,7 @@ export class ClientsService {
     private readonly clientsRepository: Repository<Client>,
   ) {}
 
-  public async findAll(filters?: FindClientsDto) {
+  public async findAll(filters?: QueryClientDto) {
     const query = this.clientsRepository.createQueryBuilder("client");
     const search = filters?.search?.trim();
 

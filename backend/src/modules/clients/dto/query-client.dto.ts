@@ -1,6 +1,6 @@
 import { IsOptional, IsString } from "class-validator";
 
-export class FindClientsDto {
+export class QueryClientDto {
   @IsOptional()
   @IsString()
   search?: string;

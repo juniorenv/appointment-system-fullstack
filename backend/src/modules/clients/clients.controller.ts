@@ -12,14 +12,14 @@ import {
 import { ClientsService } from "./clients.service";
 import { CreateClientDto } from "./dto/create-client.dto";
 import { UpdateClientDto } from "./dto/update-client.dto";
-import { FindClientsDto } from "./dto/get-client.dto";
+import { QueryClientDto } from "./dto/query-client.dto";
 
 @Controller("clients")
 export class ClientsController {
   constructor(private readonly clientsService: ClientsService) {}
 
   @Get()
-  public async findAll(@Query() search?: FindClientsDto) {
+  public async findAll(@Query() search?: QueryClientDto) {
     return this.clientsService.findAll(search);
   }
 
