@@ -84,9 +84,9 @@ export class ClientsService {
   }
 
   public async delete(clientId: string) {
-    const deletedUser = await this.clientsRepository.softDelete(clientId);
+    const deleteResult = await this.clientsRepository.softDelete(clientId);
 
-    if (deletedUser.affected === 0) {
+    if (deleteResult.affected === 0) {
       throw new NotFoundException(`Client with id ${clientId} not found`);
     }
   }
